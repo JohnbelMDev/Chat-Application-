@@ -14,55 +14,71 @@ import spinner from "../logo.svg";
 //     };
 //   }
 
-function Log(props){
+function Login(props){
    const [userName,setUsername] = useState('')
-}
+   const [isAuthenticated,setisAuthenticated] = useState(false)
+   const [user,setUser] = useState(null)
+   const [isSubmitting,setisSubmitting] = useState(false)
+   const [errorMessage,seterrorMessage] = useState("")
 
-  onSubmit = e => {
-    if (this.state.username !== "") {
+
+
+
+  const onSubmit = e => {
+    if (e.target.username !== "") {
       e.preventDefault();
-      this.login();
+      login();
     }
   };
-  login = () => {
+  const login = () => {
     this.toggleIsSubmitting();
     chat
-    .login(this.state.username)
+    .login(e.target.username)
     .then(user => {
-      this.setState({
-        user,
-        isAuthenticated: true
-      });
+      // this.setState({
+      //   user,
+      //   isAuthenticated: true
+      // });
+      setisSubmitting(true)
+      setUser(null)
+
     })
     .catch(error => {
-      this.setState({
-        errorMessage: "Please enter a valid username"
-      });
+      seterrorMessage( "Please enter a valid username")
+      // this.setState({
+      //   errorMessage: "Please enter a valid username"
+      // });
       this.toggleIsSubmitting();
       console.log(error);
     });
   };
-  toggleIsSubmitting = () => {
-    this.setState(prevState => ({
-      isSubmitting: !prevState.isSubmitting
-    }));
+  const toggleIsSubmitting = () => {
+    // this.setState(prevState => ({
+    //   isSubmitting: !prevState.isSubmitting
+    // }));
+    setisSubmitting(false)
   };
-  handleInputChange = e => {
-    this.setState({
-      username: e.target.value
-    });
+  const handleInputChange = e => {
+    // this.setState({
+    //   username: e.target.value
+    // });
+    setUsername(e.target.value);
   };
-  render() {
-    if (this.state.isAuthenticated) {
+  // render() {
+    // if (this.state.isAuthenticated) {
+    //   setisAuthenticated(true){
       return (
+        <div>
         <Redirect
           to={{
             pathname: "/chat",
             state: { user: this.state.user }
           }}
         />
+        </div>
       );
-    }
+
+    // };
     return (
       <div className="App">
         <h1>COMETCHAT</h1>
@@ -75,13 +91,13 @@ function Log(props){
           ) : (
             <input
               type="submit"
-              disabled={this.state.username === ""}
+              disabled={setUsername(e.target.value) === ""}
               value="LOGIN"
             />
           )}
         </form>
       </div>
     );
-  }
-}
+  };
+// }
 export default Login;
