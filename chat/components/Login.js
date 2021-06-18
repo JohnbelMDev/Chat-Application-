@@ -21,19 +21,25 @@ function Login(props){
    const [isSubmitting,setisSubmitting] = useState(false)
    const [errorMessage,seterrorMessage] = useState("")
 
+   //that's when I want to change the value
+   // setUsername()
 
 
+  const onSubmit = eventObject => {
+    // this is reveference to the username
+     // if (this.state.username !== "")
+     // what's event.target mdn]
+     // eventObject.target is the form element
 
-  const onSubmit = e => {
-    if (e.target.username !== "") {
-      e.preventDefault();
+    if (userName !== "") {
+      eventObject.preventDefault();
       login();
     }
   };
+
   const login = () => {
-    this.toggleIsSubmitting();
-    chat
-    .login(e.target.username)
+    toggleIsSubmitting();
+    chat.login(e.target.username)
     .then(user => {
       // this.setState({
       //   user,
@@ -65,8 +71,8 @@ function Login(props){
     setUsername(e.target.value);
   };
   // render() {
-    // if (this.state.isAuthenticated) {
-    //   setisAuthenticated(true){
+
+      if(isAuthenticated){
       return (
         <div>
         <Redirect
@@ -78,7 +84,7 @@ function Login(props){
         </div>
       );
 
-    // };
+    };
     return (
       <div className="App">
         <h1>COMETCHAT</h1>
@@ -91,7 +97,7 @@ function Login(props){
           ) : (
             <input
               type="submit"
-              disabled={setUsername(e.target.value) === ""}
+              disabled={userName === ""}
               value="LOGIN"
             />
           )}
